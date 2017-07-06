@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Online store - Cart items</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link
+	href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.4/css/bootstrap.min.css"
+	th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+	rel="stylesheet" media="screen" />
+
+<script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+	th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+
+<link href="../../static/css/spring-core.css"
+	th:href="@{css/spring-core.css}" rel="stylesheet" media="screen" />
+</head>
+<body>
+	<div class="container">
+		<div th:if="${not #lists.isEmpty(items)}">
+			<h2>Cart items List</h2>
+			<table class="table table-striped">
+				<tr>
+					<th>Cart Id</th>
+					<th>Product Id</th>
+					<!--  <th>description</th>  -->
+					<th>Quantity</th>
+					<th>price</th>
+					<th>Delete</th>
+				</tr>
+				<tr th:each="item : ${items}">
+					<td th:text="${item.id.toHexString()}"></td>
+					<td th:text="${item.productId}"></td>
+					<!-- <td th:text="${item.productDescription}"></td> -->
+					<td th:text="${item.quantity}"></td>
+					<td th:text="${item.totalPrice}"></td>
+					<td><a
+						th:href="${'/product/deleteItem/'+item.id.toHexString()}">Delete
+							Item></a></td>
+				</tr>
+			</table>
+		</div>
+		<div class="row">
+			<div th:if="${#lists.isEmpty(items)}">
+				<div class="col-sm-3">Records Not Found</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-6">
+				<a th:href="${'/product/list'}">[Products List]</a>
+			</div>
+			<div th:if="${not #lists.isEmpty(items)}">
+				<div class="col-sm-6">
+					<a th:href="${'/saveOrder/1'}">[Confirm Order]</a>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+</body>
+</html>
